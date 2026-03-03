@@ -1,15 +1,22 @@
 function getComputerChoice(){
     let x = Math.random()
     if (x <= 0.3333){
-        return("Rock")
+        return("rock")
     }
     else if (0.3333 < x && x <= 0.6777){
-        return ("Peper")
+        return ("peper")
     }
     else {
-        return ("Siasor")
+        return ("siasor")
     }
-    return x
 }
 
+function getHumanChoice(){
+    let responce = prompt("CHOOSE one Rock, Peper Siasor")
+    return responce.toLowerCase()
+}
+
+
+
 console.log(getComputerChoice())
+console.log(getHumanChoice())
