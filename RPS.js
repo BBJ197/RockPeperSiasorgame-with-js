@@ -17,29 +17,53 @@ function getHumanChoice(){
 }
 
 function playRound(humanChoice, computerChoice) {
-    let humanScore = 0
-    let computerScore = 0
         if (computerChoice == "rock" && humanChoice == "rock" 
         || computerChoice == "peper" && humanChoice == "peper"
         || computerChoice == "siasor" && humanChoice == "siasor"){
-            console.log ("Same answer retry again")
             return "d"
         }
 
         else if (computerChoice == "rock" && humanChoice == "peper" 
         || computerChoice == "peper" && humanChoice == "siasor" 
         || computerChoice == "siasor" && humanChoice == "rock"){
-            console.log("You Won! This round " + humanChoice + " beats " + computerChoice)
             return "w"
         }
 
         else {
-            console.log("You lose! This round. " + computerChoice + " beats " + humanChoice)
             return "l"
         }
 }
 
+function playGame(){
+    let humanScore = 0
+    let computerScore = 0
+    for (let i = 1; i < 6; i++ ){
 
+        let humanChoice = getHumanChoice()
+        let computerChoice = getComputerChoice()
+        let returnValue = playRound(humanChoice, computerChoice)
 
-console.log(getComputerChoice())
-console.log(getHumanChoice())
+        if (returnValue === ("w")){
+            console.log("You Won! This round " + humanChoice + " beats " + computerChoice)
+            humanScore ++
+        }
+        else if (returnValue === ("l")){
+            console.log("You lose! This round. " + computerChoice + " beats " + humanChoice)
+            computerScore ++
+        }
+        else {
+            console.log ("Same answer retry again")
+            i--
+        }
+    }
+
+    if (humanScore > computerScore) {
+        console.log("Congra! U have won by score " + humanScore + " by " + computerScore)
+    }
+
+    else {
+        console.log("Sorry! U have lost by score " + humanScore + " by " + computerScore)
+    }
+}
+
+playGame()
