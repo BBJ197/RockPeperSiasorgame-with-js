@@ -1,69 +1,106 @@
+let humanScore = 0
+let computerScore = 0
+let restart = document.getElementById("#restart");
+
 function getComputerChoice(){
     let x = Math.random()
+    let botInput = document.getElementById("botInput")
     if (x <= 0.3333){
-        return("rock")
+        botInput.innerHTML = "&#128511;"
+        return("rock");
     }
     else if (0.3333 < x && x <= 0.6777){
-        return ("peper")
+        botInput.innerHTML = "&#128195;"
+        return ("peper");
     }
     else {
-        return ("siasor")
+        botInput.innerHTML = "&#x2702;"
+        return ("siasor");
     }
 }
 
 function getHumanChoice(){
-    let responce = prompt("CHOOSE one Rock, Peper Siasor")
-    return responce.toLowerCase()
+
+    return new Promise((resolve) => {
+        let userInput = document.getElementById("userInput") 
+        const rockBtn = document.getElementById("Rock");
+        const paperBtn = document.getElementById("Peper");
+        const scissorsBtn = document.getElementById("Seasor");
+
+        rockBtn.onclick = () => {
+            userInput.innerHTML = "&#128511;";
+            resolve("rock");
+        };
+        paperBtn.onclick = () => {
+            userInput.innerHTML = "&#128195;";
+            resolve("peper");
+        };
+        scissorsBtn.onclick = () => {
+            userInput.innerHTML = "&#x2702;";
+            resolve("siasor");
+        };
+    });
 }
 
 function playRound(humanChoice, computerChoice) {
+
         if (computerChoice == "rock" && humanChoice == "rock" 
         || computerChoice == "peper" && humanChoice == "peper"
         || computerChoice == "siasor" && humanChoice == "siasor"){
-            return "d"
+            return ("d");
         }
 
         else if (computerChoice == "rock" && humanChoice == "peper" 
         || computerChoice == "peper" && humanChoice == "siasor" 
         || computerChoice == "siasor" && humanChoice == "rock"){
-            return "w"
+            return ("w");
         }
 
         else {
-            return "l"
+            return ("l");
         }
 }
 
-function playGame(){
-    let humanScore = 0
-    let computerScore = 0
-    for (let i = 1; i < 6; i++ ){
-
-        let humanChoice = getHumanChoice()
+async function playGame(){
+    let userScore = document.getElementById("userScore");
+    let botScore = document.getElementById("botScore");
+    let missage = document.getElementById("missage");
+        
+        let humanChoice = await getHumanChoice()
         let computerChoice = getComputerChoice()
         let returnValue = playRound(humanChoice, computerChoice)
-
         if (returnValue === ("w")){
-            console.log("You Won! This round " + humanChoice + " beats " + computerChoice)
+            missage.style = "display : block; color: rgb(2, 39, 3);"
+            missage.innerHTML = "You Won! This round " + humanChoice + " beats " + computerChoice + "&#127881;"
             humanScore ++
+            userScore.textContent = humanScore
         }
         else if (returnValue === ("l")){
-            console.log("You lose! This round. " + computerChoice + " beats " + humanChoice)
+            missage.style = "display : block; color: rgb(76, 17, 4);"
+            missage.innerHTML = "You lose! This round. " + computerChoice + " beats " + humanChoice + "&#128532;"
             computerScore ++
+            botScore.textContent = computerScore
         }
         else {
-            console.log ("Same answer retry again")
-            i--
+             missage.innerText = "Same answer retry again"
+        }
+    
+        if (humanScore < 5 && computerScore < 5){
+            playGame()
+        }
+         else {
+            if (humanScore == 5){
+                missage.style = "display : block; color: rgb(2, 39, 3); "
+                missage.innerHTML = "You Won! &#127881;"
+                restart.style = "display : block;"
+                
+            }
+            else if (computerScore == 5){
+                missage.style = "display : block; color: rgb(76, 17, 4);"
+                missage.innerHTML = "You lose! &#128532;"
+                restart.style = "display : block;"
+            }
         }
     }
 
-    if (humanScore > computerScore) {
-        console.log("Congra! U have won by score " + humanScore + " by " + computerScore)
-    }
-
-    else {
-        console.log("Sorry! U have lost by score " + humanScore + " by " + computerScore)
-    }
-}
-
-playGame()
+    playGame()
