@@ -126,4 +126,6 @@ async function playGame(){
         }
     }
 
+    
+
     playGame()

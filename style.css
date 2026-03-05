@@ -118,6 +118,10 @@ body {
     border:solid #0d305944 5px;
 }
 
+#Rock:hover, #Seasor:hover, #Peper:hover {
+     width: 300px;
+}
+
 #result{
     background-color: rgba(94, 96, 244, 0.244);
     text-align: center;
@@ -127,6 +131,8 @@ body {
     box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
+    min-height: 200px;
+    justify-content: center;
 }
 
 #footer{
