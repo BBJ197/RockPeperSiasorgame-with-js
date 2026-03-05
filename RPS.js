@@ -1,6 +1,10 @@
 let humanScore = 0
 let computerScore = 0
-let restart = document.getElementById("#restart");
+let restart = document.getElementById("restart");
+let clicked = document.getElementById("clicked");
+let userScore = document.getElementById("userScore");
+let botScore = document.getElementById("botScore");
+let missage = document.getElementById("missage");
 
 function getComputerChoice(){
     let x = Math.random()
@@ -61,11 +65,29 @@ function playRound(humanChoice, computerChoice) {
         }
 }
 
-async function playGame(){
-    let userScore = document.getElementById("userScore");
-    let botScore = document.getElementById("botScore");
-    let missage = document.getElementById("missage");
-        
+restart.onclick = () => {
+    humanScore = 0;
+    computerScore = 0;
+    
+    document.getElementById("userScore").textContent = "0";
+    document.getElementById("botScore").textContent = "0";
+    
+    restart.style.display = "none"; 
+
+    clicked.style.display = "flex";
+    missage.style.color = "white"
+    missage.innerHTML = "Game Reset! Choose your move.";
+    userInput.innerHTML = ""
+    botInput.innerHTML = ""
+    
+    playGame();
+};
+
+function Restart() {
+    // This function is now handled by the onclick above
+}
+
+async function playGame(){        
         let humanChoice = await getHumanChoice()
         let computerChoice = getComputerChoice()
         let returnValue = playRound(humanChoice, computerChoice)
@@ -93,12 +115,13 @@ async function playGame(){
                 missage.style = "display : block; color: rgb(2, 39, 3); "
                 missage.innerHTML = "You Won! &#127881;"
                 restart.style = "display : block;"
-                
+                clicked.style = "display : none;" 
             }
             else if (computerScore == 5){
                 missage.style = "display : block; color: rgb(76, 17, 4);"
                 missage.innerHTML = "You lose! &#128532;"
                 restart.style = "display : block;"
+                clicked.style = "display : none;" 
             }
         }
     }
