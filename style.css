@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 50px;
+    gap: 10px;
 }
 
 #header {
@@ -125,6 +125,8 @@ body {
     padding: 10px;
     margin: 0 50px 50px 50px;
     box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
 }
 
 #footer{
@@ -155,8 +157,15 @@ body {
     font-size: 30px;
     font-weight: 700;
     border:solid #0d305944 5px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     display: none;
+}
+
+#result div {
+    display: flex;
+    justify-content: space-around;
 }
 
 #result #missage{
@@ -167,5 +176,5 @@ body {
 }
 
 
-#userInput{font-size: 50px;}
-#botInput{font-size: 50px;}
+#userInput{font-size: 40px;}
+#botInput{font-size: 40px;}
